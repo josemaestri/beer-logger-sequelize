@@ -1,0 +1,46 @@
+<div class="container pt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center display-1 mb-3">It's Beer o'Clock!</h1>
+      <p class="text-center h4 pb-3 mb-5 border-bottom">Type the beer you want to have, then drink 'em when you're ready!</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h2 class="border-bottom pb-2 mb-2">Beers Ordered</h2>
+      <ul class="list-unstyled">
+        {{#each beers}}
+          {{#unless consumed}}
+            <li class="my-1 d-flex justify-content-between align-items-center bg-light pl-2 rounded">{{beer}} <button data-id="{{id}}" class="btn btn-primary btn-sm btn-drink">Drink Up!</button></li>
+          {{/unless}}
+        {{/each}}
+      </ul>
+    </div>
+    <div class="col-6">
+      <h2 class="border-bottom pb-2 mb-2">Beers Consumed</h2>
+      <ul class="list-unstyled">
+        {{#each beers}}
+          {{#if consumed}}
+            <li class="text-muted">{{beer}}</li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2 class="mt-5 mb-2 pb-2 border-bottom display-4 text-center">Order Up!</h2>
+      <form action="/beers/create" method="POST">
+        <div class="form-group row">
+          <div class="col-9">
+            <input type="text" name="beer" id="beer" class="form-control form-control-lg" placeholder="MOAR BEER!" required>
+            <input type="hidden" name="consumed" id="consumed" value="false">
+          </div>
+          <div class="col-3">
+            <input type="submit" value="Beer Me!" class="btn btn-primary btn-lg">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

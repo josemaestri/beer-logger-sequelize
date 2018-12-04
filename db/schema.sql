@@ -1,0 +1,10 @@
+CREATE DATABASE beers_db;
+
+USE beers_db;
+
+CREATE TABLE beers(
+  id INT NOT NULL AUTO_INCREMENT,
+  beer VARCHAR(255) NOT NULL,
+  consumed BOOLEAN,
+  PRIMARY KEY (id)
+);
