@@ -1,4 +1,4 @@
-<div class="container pt-5">
+<div class="container my-5 p-5 bg-warning rounded shadow-lg">
   <div class="row">
     <div class="col">
       <h1 class="text-center display-1 mb-3">It's Beer o'Clock!</h1>
@@ -11,7 +11,7 @@
       <ul class="list-unstyled">
         {{#each beers}}
           {{#unless consumed}}
-            <li class="my-1 d-flex justify-content-between align-items-center bg-light pl-2 rounded">{{beer}} <button data-id="{{id}}" class="btn btn-primary btn-sm btn-drink">Drink Up!</button></li>
+            <li class="my-1 d-flex justify-content-between align-items-center"><span class="d-block border-dark bg-light py-1 px-2 mr-1 flex-fill rounded">{{beer}}</span> <button data-id="{{id}}" class="btn btn-secondary border-dark btn-sm btn-drink">Drink Up!</button></li>
           {{/unless}}
         {{/each}}
       </ul>
@@ -33,11 +33,11 @@
       <form action="/beers/create" method="POST">
         <div class="form-group row">
           <div class="col-9">
-            <input type="text" name="beer" id="beer" class="form-control form-control-lg" placeholder="MOAR BEER!" required>
+            <input type="text" name="beer" id="beer" class="form-control form-control-lg border-dark" placeholder="MOAR BEER!" required>
             <input type="hidden" name="consumed" id="consumed" value="false">
           </div>
           <div class="col-3">
-            <input type="submit" value="Beer Me!" class="btn btn-primary btn-lg">
+            <input type="submit" value="Beer Me!" class="btn btn-light border-dark btn-lg">
           </div>
         </div>
       </form>
