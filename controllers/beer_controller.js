@@ -1,40 +1,31 @@
 // req vars
-var express = require('express');
-var beer = require('../models/beer.js');
-
-// vars
-var router = express.Router();
+var db = require('../models');
 
 // routes
-router.get('/',function(req,res){
-  res.redirect('/beers');
-});
-
-router.get('/beers', function(req,res){
-  beer.all(function(data){
-    var hbsObj = {beers: data};
-    console.log(hbsObj);
-    res.render('index',hbsObj);
-  });
-});
-
-router.post('/beers/create', function(req,res){
-  beer.create(['beer','consumed'], [req.body.beer,JSON.parse(req.body.consumed)],function(){
+module.exports = function(app){
+  app.get('/',function(req,res){
     res.redirect('/beers');
-  })
-});
-
-router.put('/beers/update/:id', function(req,res){
-  var condition = 'id = ' + req.params.id;
-
-  console.log('condition: ' + condition);
-
-  console.log(req.body);
-
-  beer.update({consumed: req.body.consumed}, condition, function(){
-    //res.redirect('/beers');
-    res.json(true);
   });
-});
 
-module.exports = router;
+  app.get('/beers', function(req,res){
+    db.beers.findAll({}).then(function(dbPost){
+      var hbsObj = {beers: dbPost};
+      res.render('index',hbsObj);
+    });
+  });
+
+  app.post('/beers/create', function(req,res){
+    db.beers.create({
+      beer: req.body.beer,
+      consumed: JSON.parse(req.body.consumed)
+    }).then(function(){
+      res.redirect('/beers');
+    });
+  });
+
+  app.put('/beers/update/:id', function(req,res){
+    db.beers.update(req.body, { where: { id: req.params.id } }).then(function(){
+        res.json(true);
+    });
+  });
+};
